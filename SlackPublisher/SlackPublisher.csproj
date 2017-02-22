@@ -47,6 +47,8 @@
     <Compile Include="Messaging\HttpPostMessageSender.cs" />
     <Compile Include="Messaging\IMessageComposer.cs" />
     <Compile Include="Messaging\IMessageSender.cs" />
+    <Compile Include="Messaging\MergeRequest.cs" />
+    <Compile Include="Messaging\Message.cs" />
     <Compile Include="Messaging\MessageComposer.cs" />
     <Compile Include="Messaging\Payload.cs" />
     <Compile Include="SlackPublisher.cs" />

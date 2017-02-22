@@ -39,7 +39,7 @@ namespace ThoughtWorks.CruiseControl.Core.Publishers
 
             var message = this.messageComposer.CreateMessage(result);
 
-            var payload = new Payload(message);
+            var payload = new Payload(message.ToString());
             this.messageSender.Send(this.WebhookUrl, payload);
         }
 

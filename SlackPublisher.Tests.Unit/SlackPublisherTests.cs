@@ -47,6 +47,7 @@ namespace SlackPublisher.Tests.Unit
         {
             var messageSender = fakeMessageSender ?? new Mock<IMessageSender>().Object;
             var messageComposer = new Mock<IMessageComposer>();
+            messageComposer.Setup<Messaging.Message>(m => m.CreateMessage(It.IsAny<IIntegrationResult>())).Returns(new Messaging.Message());
 
             return new ThoughtWorks.CruiseControl.Core.Publishers.SlackPublisher(messageSender, messageComposer.Object)
             {
