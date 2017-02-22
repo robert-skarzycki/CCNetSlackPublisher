@@ -1,11 +1,13 @@
 ﻿namespace SlackPublisher.Messaging
 {
-    public class HttpPostHelper
+    public class HttpPostMessageSender : IMessageSender
     {
         //http://www.hanselman.com/blog/HTTPPOSTsAndHTTPGETsWithWebClientAndCAndFakingAPostBack.aspx
 
-        public static string HttpPost(string URI, string Parameters)
+        public void Send(string URI, Payload payload)
         {
+            var Parameters = payload.ToJson();
+
             System.Net.WebRequest req = System.Net.WebRequest.Create(URI);
             req.Proxy.Credentials = System.Net.CredentialCache.DefaultCredentials;
             //Add these, as we're doing a POST
@@ -21,7 +23,7 @@
                 using (System.Net.WebResponse resp = req.GetResponse())
                 using (var sr = new System.IO.StreamReader(resp.GetResponseStream()))
                 {
-                    return sr.ReadToEnd().Trim();
+                    sr.ReadToEnd().Trim();
                 }
             }
         }
