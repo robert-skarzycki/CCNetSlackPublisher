@@ -7,16 +7,22 @@ namespace ThoughtWorks.CruiseControl.Core.Publishers
     public class SlackPublisher : ITask
     {
         [ReflectorProperty("webhookUrl")]
-        public string WebhookUrl { get; set; }
+        public string WebhookUrl { get; set; }        
 
         public void Run(IIntegrationResult result)
         {
-            if (string.IsNullOrEmpty(WebhookUrl))
+            if (!this.IsConfigurationValid())
                 return;
 
-            var payload = new Payload(FormatText(result));
+            var message = this.FormatText(result);
 
+            var payload = new Payload(message);
             HttpPostHelper.HttpPost(WebhookUrl, payload.ToJson());
+        }
+
+        private bool IsConfigurationValid()
+        {
+            return !string.IsNullOrEmpty(WebhookUrl);
         }
 
         private string FormatText(IIntegrationResult result)
