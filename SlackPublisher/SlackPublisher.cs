@@ -11,12 +11,14 @@ namespace ThoughtWorks.CruiseControl.Core.Publishers
     public class SlackPublisher : ITask
     {
         private IMessageSender messageSender;
+        private IMessageComposer messageComposer;
 
-        public SlackPublisher() : this(new HttpPostMessageSender()) { }
+        public SlackPublisher() : this(new HttpPostMessageSender(), new MessageComposer()) { }
 
-        internal SlackPublisher(IMessageSender messageSender)
+        internal SlackPublisher(IMessageSender messageSender, IMessageComposer messageComposer)
         {
             this.messageSender = messageSender;
+            this.messageComposer = messageComposer;
         }
 
         [ReflectorProperty("webhookUrl")]
@@ -35,7 +37,7 @@ namespace ThoughtWorks.CruiseControl.Core.Publishers
             if (!this.StatusesToConsume.Contains(result.Status))
                 return;
 
-            var message = this.FormatText(result);
+            var message = this.messageComposer.CreateMessage(result);
 
             var payload = new Payload(message);
             this.messageSender.Send(this.WebhookUrl, payload);
@@ -60,16 +62,6 @@ namespace ThoughtWorks.CruiseControl.Core.Publishers
         private bool IsConfigurationValid()
         {
             return !string.IsNullOrEmpty(this.WebhookUrl);
-        }
-
-        private string FormatText(IIntegrationResult result)
-        {
-            return string.Format("<{0}|{1}> {2} {3} {4}",
-                result.ProjectUrl,
-                result.ProjectName,
-                result.Label,
-                result.Status,
-                result.Succeeded ? ":white_check_mark:" : ":interrobang:");
-        }
+        }        
     }
 }

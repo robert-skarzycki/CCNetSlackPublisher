@@ -46,8 +46,9 @@ namespace SlackPublisher.Tests.Unit
         private ThoughtWorks.CruiseControl.Core.Publishers.SlackPublisher GetSut(IMessageSender fakeMessageSender)
         {
             var messageSender = fakeMessageSender ?? new Mock<IMessageSender>().Object;
+            var messageComposer = new Mock<IMessageComposer>();
 
-            return new ThoughtWorks.CruiseControl.Core.Publishers.SlackPublisher(messageSender)
+            return new ThoughtWorks.CruiseControl.Core.Publishers.SlackPublisher(messageSender, messageComposer.Object)
             {
                 WebhookUrl = "some url"
             };
