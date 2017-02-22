@@ -1,5 +1,5 @@
 ﻿using Exortech.NetReflector;
-using SlackPublisher;
+using SlackPublisher.Messaging;
 
 namespace ThoughtWorks.CruiseControl.Core.Publishers
 {

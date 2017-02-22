@@ -44,8 +44,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HttpPostHelper.cs" />
-    <Compile Include="Payload.cs" />
+    <Compile Include="Messaging\HttpPostHelper.cs" />
+    <Compile Include="Messaging\Payload.cs" />
     <Compile Include="SlackPublisher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

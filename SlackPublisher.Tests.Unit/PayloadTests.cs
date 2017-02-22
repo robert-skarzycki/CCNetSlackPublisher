@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using SlackPublisher.Messaging;
 
 namespace SlackPublisher.Tests.Unit
 {

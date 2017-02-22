@@ -1,4 +1,4 @@
-﻿namespace SlackPublisher
+﻿namespace SlackPublisher.Messaging
 {
     public class HttpPostHelper
     {
